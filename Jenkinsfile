@@ -45,9 +45,8 @@ pipeline {
     
     post {
         always {
-            deletedir()
+            deleteDir()
         }
-        
         failure{
             emailext body: 'Check console output at $BUILD_URL to view the results.', subject: 'Reg: Build failed in jenkins', to: 'gopisaramalla98@gmail.com'
         }
