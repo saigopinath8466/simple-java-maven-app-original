@@ -9,7 +9,7 @@ pipeline {
     stages{
         stage('checkout'){
             Steps{
-                git credentialsId: 'gopigithubid', url: 'https://github.com/saigopinath8466/simple-java-maven-app-original.git'
+                checkout scm
             }
         }
         
