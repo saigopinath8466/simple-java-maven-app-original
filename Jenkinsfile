@@ -4,7 +4,7 @@ pipeline {
          maven 'maven362'
     }
     triggers {
-        cron('*/5 * * * *')
+        cron('*/1 * * * *')
     }
     stages{
         stage('checkout'){
