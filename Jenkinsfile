@@ -10,6 +10,7 @@ pipeline {
          target_server = "34.224.41.159"
          EMAIL_TO = "gopinathsaramalla98@gmail.com"
          }
+    // I have schedule the test cases for every minute, we can schedule the build as per requirement.
     triggers {
         cron('*/1 * * * *')
     }
