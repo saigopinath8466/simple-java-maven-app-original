@@ -5,6 +5,11 @@ pipeline {
     tools {
          maven 'maven362'
     }
+    environment {
+         target_user = "ubuntu"
+         target_server = "34.224.41.159"
+         EMAIL_TO = "gopinathsaramalla98@gmail.com"
+         }
     triggers {
         cron('*/1 * * * *')
     }
@@ -27,15 +32,9 @@ pipeline {
                 junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
             }
         }
-        
-        stage('target1') {
-            environment {
-               target_user = "ubuntu"
-                 target_server = "34.224.41.159"
-            }
-                
-            steps{
-               echo "deploying Dev environment"
+     //   I have generated the SSH keys and pasted the public key in destination "VM" and the private key is pasted in "testforcron". So the jar file can be deployed in destination VM.   
+        stage('deploying to VM') {
+             steps{
                sshagent(['testforcron']) {
                sh "scp -o StrictHostKeyChecking=no target/my-app-1.0-SNAPSHOT.jar $target_user@$target_server:/home/ubuntu"
                  }
@@ -47,8 +46,9 @@ pipeline {
         always {
             deleteDir()
         }
+        // This should be acheived if we configure the STMP server in jenkins
         failure{
-            emailext body: 'Check console output at $BUILD_URL to view the results.', subject: 'Reg: Build failed in jenkins', to: 'gopisaramalla98@gmail.com'
+            emailext body: 'Check console output at $BUILD_URL to view the results.', subject: 'Reg: Build failed in jenkins', to: '${EMAIL_TO}'
         }
         success {
             echo "the job is success"
