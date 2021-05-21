@@ -7,7 +7,7 @@ pipeline {
     }
     environment {
          target_user = "ubuntu"
-         target_server = "34.224.41.159"
+         target_server = "172.31.28.150"
          EMAIL_TO = "gopinathsaramalla98@gmail.com"
          }
     // I have schedule the test cases for every minute, we can schedule the build as per requirement.
